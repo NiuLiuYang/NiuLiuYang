@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/commons/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons/commons-lang3-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/json/fastjson-1.1.37.jar"/>
+	<classpathentry kind="lib" path="lib/json/gexin_jackson-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/json/jackson-annotations-2.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/json/jackson-core-2.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/json/jackson-databind-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/log/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="lib/log/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="lib/xml/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/xml/xstream.jar"/>
+	<classpathentry kind="lib" path="lib/spring/spring-core-4.0.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/tomcat/servlet-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
