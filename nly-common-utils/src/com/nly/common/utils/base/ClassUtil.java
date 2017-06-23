@@ -3,6 +3,8 @@ package com.nly.common.utils.base;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 反射操作类
@@ -131,6 +133,34 @@ public class ClassUtil {
 
 		Class  entityClass= (Class)(parameterizedType.getActualTypeArguments()[0]); 
 		return entityClass;
+	}
+	
+	/**
+	 * 得到类中的所有属性集合 
+	 * @return
+	 */
+	public static Field[] getField(Object obj){
+		Class<?> userCla = getClass(obj);
+		return userCla == null ? null : userCla.getDeclaredFields();
+	}
+	
+	/**
+	 * 将对象转换成一个Map
+	 * @param obj
+	 * @return
+	 * @throws Exception
+	 */
+	public static Map<String, Object> getObjectOrMap(Object obj) throws Exception{
+		Map<String, Object> map = new HashMap<String,Object>();
+	    Field[] fs = getField(obj);
+	    if(fs == null) return map;
+	    for(int i = 0 ; i < fs.length; i++){  
+           Field f = fs[i];  
+           f.setAccessible(true);//设置些属性是可以访问的 
+           Object val = f.get(obj);//得到此属性的值
+           map.put(f.getName(), val);
+	     }
+	    return map;
 	}
 	
 }
