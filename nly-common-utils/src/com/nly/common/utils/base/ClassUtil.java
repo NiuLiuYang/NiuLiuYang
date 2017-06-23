@@ -145,6 +145,7 @@ public class ClassUtil {
 	}
 	
 	/**
+	 * nly
 	 * 将对象转换成一个Map
 	 * @param obj
 	 * @return
