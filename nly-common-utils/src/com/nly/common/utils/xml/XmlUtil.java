@@ -2,6 +2,7 @@ package com.nly.common.utils.xml;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +40,6 @@ public class XmlUtil {
 	public static Element getRootElement() throws Exception{
 		SAXReader saxReader = new SAXReader();
 	    Document document = saxReader.read(new File(path));
-	    // 获取根元素
 	    Element root = document.getRootElement();
 	    return root;
 	}
@@ -59,6 +59,47 @@ public class XmlUtil {
 	    return list;
 	}
 
+	/**
+	 * 获取指定节点指定属性值为xxx的节点集合
+	 * @param el 节点
+	 * @param parent 节点名字
+	 * @param pId 属性名字
+	 * @param pVal 属性值
+	 * @param list 集合
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<Element> getElements(Element el,String parent,String pId,String pVal, List<Element> list) throws Exception{
+	    for (Iterator it=el.elementIterator() ; it.hasNext();){
+            Element e = (Element) it.next();
+            if(e.getName().equals(parent) && e.attributeValue(pId).equals(pVal)) list.add(e);
+            getElements(e, parent, pId, pVal,list);
+        }
+	    return list;
+	}
+	
+	/**
+	 * 获取指定节点指定属性下的指定节点的集合
+	 * @param parent 父节节点名字
+	 * @param pId 属性名字
+	 * @param pVal 属性值
+	 * @param key 节点名字
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<Element> getElements(String parent,String pId,String pVal,String key) throws Exception{
+		List<Element> pList = new ArrayList<Element>();
+		List<Element> kList = new ArrayList<Element>();
+		Element root = getRootElement();
+		if(root.getName().equals(parent) && pVal.equals(root.attributeValue(pId))){
+			pList.add(root);
+		}
+		getElements(root, parent, pId, pVal,pList);
+		for(Element p : pList){
+			getElements(p, key,kList);
+		}
+		return kList;
+	}
 	
 	/**
 	 * 根据xml的元素获取值
@@ -67,10 +108,7 @@ public class XmlUtil {
 	 * @throws Exception
 	 */
 	public String getXMLValue(String name) throws Exception {
-		SAXReader saxReader = new SAXReader();
-	    Document document = saxReader.read(new File(path));
-	    // 获取根元素
-	    Element root = document.getRootElement();
+		Element root = getRootElement();
 	    Map<String,String> map = new HashMap<String,String>();
 	    getText(root,map);
 	    return map.get(name);
@@ -108,6 +146,7 @@ public class XmlUtil {
 		String result = xstream.toXML(object);
 		return result;
 	}
+	
 	/**
 	 * xml字符串转换为java bean对象
 	 * @param xml 传入的xml字符串
@@ -119,6 +158,7 @@ public class XmlUtil {
 		T result = (T) xstream.fromXML(xml);
 		return result;
 	}
+	
 	/**
 	 * xml字符串转换为java bean对象
 	 * @param xml 传入的xml字符串
@@ -134,6 +174,59 @@ public class XmlUtil {
 		}
 		T result = (T) xstream.fromXML(xml);
 		return result;
+	}
+	
+	/**
+	 * 获取指定标签的指定属性值的集合
+	 * @param key 节点名字
+	 * @param name 属性
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<String> getXmlAttributeValue(String key,String name) throws Exception {
+		 List<String> list =new ArrayList<String>();
+		 List<Element> keyList = new ArrayList<Element>();
+		 Element root = getRootElement();
+		 if(root.getName().equals(key)) keyList.add(root);
+		 getElements(root, key,keyList);
+		 for(Element e : keyList){
+			 list.add(e.attributeValue(name));
+		 }
+	     return  list;
+	}
+	
+	/**
+	 * 获取指定节点指定属性下的指定节点的指定属性的集合
+	 * @param parent 父节节点名字
+	 * @param pId 属性名字
+	 * @param pVal 属性值
+	 * @param key 节点名字
+	 * @param keyId 属性名字
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<String> getXmlAttributeValue(String parent,String pId,String pVal,String key,String keyId) throws Exception{
+		List<String> list =new ArrayList<String>();
+		List<Element> kList = getElements(parent,pId,pVal,key);
+		for(Element k : kList){
+			list.add(k.attributeValue(keyId));
+		}
+		return list;
+	}
+	
+	
+	
+	@SuppressWarnings("static-access")
+	public static void main(String[] args) {
+		try{
+			List<String> app = init("/MyXml.xml").getXmlAttributeValue("Items","text");
+			//List<String> app = init("/MyXml.xml").getXmlAttributeValue("Items","id","systemmanagement","Item","text");
+			for(String b : app){
+				System.out.println(b);
+			}
+		}catch(Exception e){
+			
+		}
 	}
 	
 }

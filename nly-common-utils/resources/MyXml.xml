@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Menus id="Mod_team" text="ROMP管理平台" iconCls="mod-team">
+	<Items id="systemmanagement" text="集群管理" iconCls="menu-icon fa fa-desktop" >
+		<Item id="newProjectForm" text="服务器管理 " iconCls="menu-icon fa fa-caret-right" url="page/sysuser" SEQUENCE="1" isControl="false" />
+		<Item id="newProjectForm" text="服务器 " iconCls="menu-icon fa fa-caret-right" url="page/sysuser" SEQUENCE="2" isControl="false" />
+	</Items>
+	<Items id="flowtasks" text="租户管理" iconCls="menu-icon fa fa-desktop" >
+		<Item id="newProjectForm" text="贷款申请 " iconCls="menu-icon fa fa-caret-right" url="page/sysuser" isControl="false" />
+	</Items>
+	<Items id="flowtasks" text="监控管理" iconCls="menu-icon fa fa-desktop" >
+		<Item id="newProjectForm" text="贷款申请 " iconCls="menu-icon fa fa-caret-right" url="page/sysuser" isControl="false" />
+	</Items>
+</Menus>
