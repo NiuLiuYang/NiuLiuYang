@@ -34,10 +34,10 @@ public class XMLParseUtil {
      * @throws IOException
      * @throws SAXException
      */
-    public Document getDocument() throws IOException, SAXException{
+    public Document getDocument(String file) throws IOException, SAXException{
     	Document doc = null;
-		ClassPathResource resource = new ClassPathResource("/MyXml.xml"); 
-		String path = resource.getURL().getPath().replace("20%", "");
+		ClassPathResource resource = new ClassPathResource(file); 
+		String path = resource.getURL().getPath().replace("%20", "");
 		doc = parseDocument(path);
 		return doc;
     }
@@ -188,7 +188,7 @@ public class XMLParseUtil {
     public static void main(String[] args) {
     	try {
 			XMLParseUtil xmlParse = new XMLParseUtil();
-			Document doc = xmlParse.getDocument();
+			Document doc = xmlParse.getDocument("/MyXml.xml");
 			NodeList itemsNodeList = (NodeList) xmlParse.selectNodes(doc, "//Menus/Items[Item/@id='newProjectForm']");
 			System.out.println(""+itemsNodeList.getLength());
 			for(int i = 0; i < itemsNodeList.getLength(); i++){

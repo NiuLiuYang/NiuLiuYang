@@ -27,7 +27,7 @@ public class XmlUtil {
 	private static String path;
 	public static XmlUtil init(String file) throws IOException{
 		ClassPathResource resource = new ClassPathResource(file); 
-		path = resource.getURL().getPath().replace("20%", ""); 
+		path = resource.getURL().getPath().replace("%20", ""); 
 		return new XmlUtil();
 	}
 	
